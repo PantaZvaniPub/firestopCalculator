@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Negorive sa vunom</title>
+	<script type="text/javascript" src="Firestop Calculator.js"></script>
+</head>
+<body>
+
+<h2>Vrsta otvora</h2>
+<select id="selectForm" onchange="show(this.options[this.selectedIndex].value)">
+	<!-- <option value="Izaberi vrstu prodora">Izaberi vrstu prodora</option> -->
+  <option value="Kvadrat">Šteman otvor</option>
+  <option value="Krug">Kernovan otvor</option>
+</select>
+
+<br>
+
+<h2>Podaci o prodoru</h2>
+<div id="KvadratDiv" style="display:inline-block">
+	<form name="KvadratForma">
+		Kolika je sirina otvora u mm
+		<input type="text" name="sirinaOtvora" value=0><br>
+		Kolika je visina otvora u mm
+		<input type="text" name="visinaOtvora" value=0><br>
+		Kolika je debljina zida u mm
+		<input type="text" name="debljinaZida" value=0><br>
+		Koliki je precnik cevi u mm
+		<input type="text" name="precnikCevi" value=0><br>
+		Koliko ovakvih prodora ima
+		<input type="text" name="brojProdora" value=0><br><br>
+		<input type="button" value="Negorive Cevi (CFS CT, CFS ACR)" onclick="negoriveKvadrat()"><br><br>
+		<input type="button" value="Negorive Cevi (CFS FX - Pena)" onclick="negoriveKvadratPena()"><br><br>
+		<input type="button" value="Gorive Cevi (CFS CT, CFS ACR i CFS W EL)" onclick="goriveKvadrat()"><br><br>
+		<input type="button" value="Gorive Cevi (CFS FX i CFS W EL)" onclick="goriveKvadratPena()">
+	</form>
+</div>
+<div id="KrugDiv" style="display:none">
+	<form name="KrugForma">
+		Koliki je precnik otvora u mm
+		<input type="text" name="precnikOtvora" value=0><br>
+		Koliki je precnik cevi u mm
+		<input type="text" name="precnikCevi" value=0><br>
+		Kolika je debljina zida u mm
+		<input type="text" name="debljinaZida" value=0><br>
+		Koliko ovakvih prodora ima
+		<input type="text" name="brojProdora" value=0><br><br>
+		<input type="button" value="Negorive Cevi (CFS CT, CFS ACR)" onclick="negoriveKrug()"><br><br>
+		<input type="button" value="Negorive Cevi (CFS FX - Pena)" onclick="negoriveKrugPena()"><br><br>
+		<input type="button" value="Gorive Cevi (CFS CT, CFS ACR i CFS W EL)" onclick="goriveKrug()"><br><br>
+		<input type="button" value="Gorive Cevi (CFS FX i CFS W EL)" onclick="goriveKrugPena()">
+	</form>
+</div>
+
+</body>
+</html>
