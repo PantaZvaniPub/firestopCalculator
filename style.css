@@ -1,0 +1,33 @@
+.dugme {
+	background-color: #D2051E;
+    border-width: 0;
+    color: white;
+    width: 300px;
+    height: 30px;
+    font-size: 14px;
+}
+
+form {
+	height: 250px;
+    width: 400px;
+	display: inline-block;
+	font-size: 1.0em;
+}
+
+.textPolje {
+	width: 100px;
+
+}
+
+html, 
+body {
+    height: 100%;
+}
+
+body {
+	margin: 0px;
+	background: rgb(210,5,30);
+	background: linear-gradient(133deg, rgba(210,5,30,1) 0%, rgba(2,0,36,1) 100%, rgba(255,0,0,1) 100%);
+	text-align: center;
+	color: white;
+}
