@@ -10,11 +10,15 @@ var kolicinaCT = 0;
 var kolicinaACR = 0;
 var kolicinaPene = 0;
 var kolutovaTrake = 0;
+var komadaObujmica = 0;
 
 // VARIJABLE
 
 function precnikCeviSaTrakom() { return (precnikCevi + brojObmotaja()*9) };
 function brojOtvoraPoKolutu() { return Math.floor( 10000/( precnikCeviSaTrakom() *3.14 *brojObmotaja()) ) };
+function resenje(poruka) {
+	document.getElementById('textResenja').value = document.getElementById('textResenja').value + poruka +"\n==============================\n";
+};
 
 function brojObmotaja() {
 	if(precnikCevi <= 75) { return 1 
@@ -89,7 +93,9 @@ function resetVrednosti(){
 
 };
 
-//CORE Fje
+//CORE Funkcije za racunanje materijala
+
+//Stemani prodori
 
 function negoriveKvadrat(){
 
@@ -98,7 +104,9 @@ function negoriveKvadrat(){
 	kolicinaCT = (sirinaOtvora*visinaOtvora-Math.pow(precnikCevi/2,2)*3.14)*2*1.1*1.4*brojProdora/1000000;
 	kolicinaACR = (3*sirinaOtvora+2*visinaOtvora-precnikCevi+precnikCevi*3.14)*debljinaZida*0.4*brojProdora/1000000;
 
-	alert("Potrebno je " + Math.round(kolicinaCT*100)/100 + " kg smese CFS CT i \n" + Math.round(kolicinaACR*100)/100 + " L smese CFS ACR");
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+		+ brojProdora + "\nPotreban materijal:\n-" +  Math.round(kolicinaCT*100)/100 + " kg CFS CT (2036605/2036607 6kg/18kg) \n-" + Math.round(kolicinaACR*100)/100 + " L CFS ACR (435859/435864 330mL/5L)");
+	
 	resetVrednosti();
 };
 
@@ -107,28 +115,10 @@ function negoriveKvadratPena(){
 	kvadratData()
 
 	kolicinaPene = ( sirinaOtvora*visinaOtvora - Math.pow(precnikCevi/2,2)*3.14 ) *debljinaZida*brojProdora/koeficijentPeneNegoriveKvadrat();
+
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+		+ brojProdora + "\nPotreban materijal:\n-" + Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L");
 	
-	alert("Potrebno je " + Math.round(kolicinaPene*1000)/1000 + " L pene CFS F FX odnosno " + Math.ceil(kolicinaPene/0.325) + " pakovanja od 325ml");
-	resetVrednosti();
-};
-
-function negoriveKrug(){
-
-	krugData()
-
-	kolicinaACR = (Math.pow(precnikOtvora,2)-Math.pow(precnikCevi,2))*3.14*(precnikOtvora - precnikCevi)*brojProdora/2000000;
-
-	alert("Potrebno je " + Math.round(kolicinaACR*100)/100 + " L smese CFS ACR");
-	resetVrednosti();
-};
-
-function negoriveKrugPena(){
-
-	krugData()
-
-	kolicinaPene = (Math.pow(precnikOtvora/2,2) - Math.pow(precnikCevi/2,2)) *3.14 *debljinaZida *brojProdora /koeficijentPeneNegoriveKrug();
-
-	alert("Potrebno je " + Math.round(kolicinaPene*1000)/1000 + " L pene CFS F FX odnosno " + Math.ceil(kolicinaPene/0.325) + " pakovanja od 325ml");
 	resetVrednosti();
 };
 
@@ -140,7 +130,10 @@ function goriveKvadrat(){
 	kolicinaACR = (3*sirinaOtvora+2*visinaOtvora- precnikCeviSaTrakom() +precnikCeviSaTrakom()*3.14)*debljinaZida*0.4*brojProdora/1000000;
 	kolutovaTrake = brojProdora/brojOtvoraPoKolutu();
 
-	alert("Potrebno je " + Math.round(kolicinaCT*100)/100 + " kg smese CFS CT i \n" + Math.round(kolicinaACR*100)/100 + " L smese CFS ACR i \n" + Math.round(kolutovaTrake*100)/100 + " kolutova trake CFS W EL (od 10m)");
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+		+ brojProdora + "\nPotreban materijal:\n-" +  Math.round(kolicinaCT*100)/100 + " kg CFS CT (2036605/2036607 6kg/18kg) \n-" + Math.round(kolicinaACR*100)/100 
+		+ " L CFS ACR (435859/435864 330mL/5L) \n-" + Math.round(kolutovaTrake*100)/100 + " kolutova CFS W EL (429556 10m)");
+
 	resetVrednosti();
 };
 
@@ -151,9 +144,69 @@ function goriveKvadratPena(){
 	kolicinaPene = ( sirinaOtvora*visinaOtvora - Math.pow(precnikCeviSaTrakom()/2,2)*3.14 ) *debljinaZida*brojProdora/koeficijentPeneGoriveKvadrat();
 	kolutovaTrake = brojProdora/brojOtvoraPoKolutu();
 
-	alert("Potrebno je " + Math.round(kolicinaPene*1000)/1000 + " L pene CFS F FX odnosno " + Math.ceil(kolicinaPene/0.325) + " pakovanja od 325ml i \n" + Math.round(kolutovaTrake*100)/100 + " kolutova trake CFS W EL (od 10m)");
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+		+ brojProdora + "\nPotreban materijal:\n-" + Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L \n-"
+		+  Math.round(kolutovaTrake*100)/100 + " kolutova CFS W EL (429556 10m)");	
+
 	resetVrednosti();
 };
+
+function goriveKvadratObujmice(){
+	
+	kvadratData()
+	kolicinaCT = (sirinaOtvora*visinaOtvora-Math.pow(precnikCevi/2,2)*3.14)*2*1.1*1.4*brojProdora/1000000;
+	komadaObujmica = brojProdora*2;
+
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+		+ brojProdora + "\nPotreban materijal:\n-" +  Math.round(kolicinaCT*100)/100 + " kg CFS CT (2036605/2036607 6kg/18kg) \n-" + Math.round(kolicinaACR*100)/100 
+		+ " L CFS ACR (435859/435864 330mL/5L\n-" + komadaObujmica + " kom CFS C (P) " + precnikCevi + "mm (435406-435412)");
+
+	resetVrednosti();
+
+};
+
+function goriveKvadratPenaObujmice(){
+
+	kvadratData()
+
+	kolicinaPene = ( sirinaOtvora*visinaOtvora - Math.pow(precnikCevi/2,2)*3.14 ) *debljinaZida*brojProdora/koeficijentPeneNegoriveKvadrat();
+	komadaObujmica = brojProdora*2;
+	
+	resenje("Dimenzije otvora ŠxVxD: " + sirinaOtvora + "x" + visinaOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " 
+	+ brojProdora + "\nPotreban materijal:\n-" + Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L \n-"
+	+ komadaObujmica + " kom CFS C (P) " + precnikCevi + "mm (435406-435412)");	
+
+	resetVrednosti();
+
+};
+
+//=================================================================
+//Kernovani prodori
+
+function negoriveKrug(){
+
+	krugData()
+
+	kolicinaACR = (Math.pow(precnikOtvora,2)-Math.pow(precnikCevi,2))*3.14*(precnikOtvora - precnikCevi)*brojProdora/2000000;
+
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.round(kolicinaACR*100)/100 + " L CFS ACR (435859/435864 330mL/5L)");
+	
+	resetVrednosti();
+};
+
+function negoriveKrugPena(){
+
+	krugData()
+
+	kolicinaPene = (Math.pow(precnikOtvora/2,2) - Math.pow(precnikCevi/2,2)) *3.14 *debljinaZida *brojProdora /koeficijentPeneNegoriveKrug();
+
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L");
+
+	resetVrednosti();
+};
+
 
 function goriveKrug(){
 
@@ -162,7 +215,9 @@ function goriveKrug(){
 	kolicinaACR = (Math.pow(precnikOtvora,2)-Math.pow(precnikCeviSaTrakom(),2))*3.14*(precnikOtvora - precnikCeviSaTrakom())*brojProdora/2000000;
 	kolutovaTrake = brojProdora/brojOtvoraPoKolutu();
 
-	alert("Potrebno je " + Math.round(kolicinaACR*100)/100 + " L smese CFS ACR i \n" + Math.round(kolutovaTrake*100)/100 + " kolutova trake CFS W EL (od 10m)");
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.round(kolicinaACR*100)/100 + " L CFS ACR (435859/435864 330mL/5L) \n-" + Math.round(kolutovaTrake*100)/100 + " kolutova CFS W EL (429556 10m)");
+
 	resetVrednosti();
 };
 
@@ -173,8 +228,34 @@ function goriveKrugPena(){
 	kolicinaPene = (Math.pow(precnikOtvora/2,2) - Math.pow(precnikCeviSaTrakom()/2,2)) *3.14 *debljinaZida *brojProdora/koeficijentPeneGoriveKrug();
 	kolutovaTrake = brojProdora/brojOtvoraPoKolutu();
 
-	alert("Potrebno je " + Math.round(kolicinaPene*1000)/1000 + " L pene CFS F FX odnosno " + Math.ceil(kolicinaPene/0.325) + " pakovanja od 325ml i \n" + Math.round(kolutovaTrake*100)/100 + " kolutova trake CFS W EL (od 10m)");
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L \n-" + Math.round(kolutovaTrake*100)/100 + " kolutova CFS W EL (429556 10m)");
+	
 	resetVrednosti();
 };
 
+function goriveKrugObujmice(){
 
+	krugData()
+
+	kolicinaACR = (Math.pow(precnikOtvora,2)-Math.pow(precnikCevi,2))*3.14*(precnikOtvora - precnikCevi)*brojProdora/2000000;
+	komadaObujmica = brojProdora*2;
+
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.round(kolicinaACR*100)/100 + " L CFS ACR (435859/435864 330mL/5L) \n-" + komadaObujmica + " kom CFS C (P) " + precnikCevi + "mm (435406-435412)");
+
+	resetVrednosti();
+};
+
+function goriveKrugPenaObujmice(){
+
+	krugData()
+
+	kolicinaPene = (Math.pow(precnikOtvora/2,2) - Math.pow(precnikCevi/2,2)) *3.14 *debljinaZida *brojProdora /koeficijentPeneNegoriveKrug();
+	komadaObujmica = brojProdora*2;
+
+	resenje("Dimenzije otvora: ⌀" + precnikOtvora + "x" + debljinaZida + "mm \nPrecnik cevi: " + precnikCevi + " mm \nBroj Prodora: " + brojProdora + "\nPotreban materijal:\n-" 
+		+ Math.ceil(kolicinaPene/0.325) + " pak  CFS F FX (429802 325mL) tj. " + Math.round(kolicinaPene*1000)/1000 + " L \n-" + komadaObujmica + " kom CFS C (P) " + precnikCevi + "mm (435406-435412)");
+
+	resetVrednosti();
+};

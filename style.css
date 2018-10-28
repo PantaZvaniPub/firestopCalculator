@@ -2,7 +2,7 @@
 	background-color: #D2051E;
     border-width: 0;
     color: white;
-    width: 300px;
+    width: 360px;
     height: 30px;
     font-size: 14px;
 }
@@ -15,13 +15,50 @@ form {
 }
 
 .textPolje {
-	width: 100px;
+	width: 70px;
 
+}
+
+#pitanja {
+	float: left;
+	display: inline;
+	padding-left: 60px;
+	line-height: 1.33;
+}
+
+#forme {
+	float:left;
+	display: inline;
+	width: 350px;
+	height: 100%
+}
+
+#resenje > h2 {
+	margin-top: 0px;
+}
+
+#resenje {
+	width: 450px;
+	height: 100%;
+	display: inline;
+}
+
+#box {
+	width: 800px;
+	height: 100%;
+	margin:0 auto;
+}
+
+#textResenja {
+	margin-top: 0px;
+	width: 43%;
+	height: 400px;
 }
 
 html, 
 body {
     height: 100%;
+    overflow: auto;
 }
 
 body {
